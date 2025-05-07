@@ -9,10 +9,21 @@ const autherToken = require("../middleware/autherToken");
 const userLogout = require("../controller/user/userLogout");
 const allUsersDetails = require("../controller/user/allUserDetails");
 const updateUser = require("../controller/user/updateUser");
+
 const CreateCollectorController = require("../controller/collector/createCollector");
 const getCollectorController = require("../controller/collector/getCollectorDetails");
 const updateCollectorController = require("../controller/collector/updateCollector");
 
+const sendEmailController = require('../controller/email/sendEmai')
+const getEmailController = require('../controller/email/getEmails')
+const { sendEmailMsgController } = require('../controller/email/sendEmailMsg')
+const storeEmailMsgController = require('../controller/email/storeSendMsg')
+const getSendMessagesController = require('../controller/email/getsendMsg')
+
+const addFeedbackController = require('../controller/feedback/addfeedback')
+const getAllFeedbacksController = require('../controller/feedback/getallfeedback')
+const deleteFeedbackController = require('../controller/feedback/deletefeedback')
+const { updateFeedback } = require('../controller/feedback/updatefeedback')
 
 
 
@@ -31,5 +42,17 @@ router.post("/collector-form",CreateCollectorController)
 router.get("/get-collector",getCollectorController)
 router.post('/update-collector',autherToken,updateCollectorController)
 
+//email
+router.post("/send-email",sendEmailController)
+router.get("/get-emails",getEmailController)
+router.post("/send-message",sendEmailMsgController)
+router.post("/store-message",storeEmailMsgController)
+router.get("/get-send-message",getSendMessagesController)
+
+//feedback
+router.post("/add-feedback",addFeedbackController)
+router.get("/get-feedback",getAllFeedbacksController)
+router.post("/update-feedback/:id",updateFeedback)
+router.post("/delete-feedback",deleteFeedbackController)
 
 module.exports = router;
