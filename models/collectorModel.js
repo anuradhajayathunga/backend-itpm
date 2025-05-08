@@ -1,9 +1,11 @@
+// collectorModel.js
 const mongoose = require("mongoose");
 
-const collectorSchema =new mongoose.Schema({
+const collectorSchema = new mongoose.Schema(
+  {
     fname: String,
     lname: String,
-    email: String,
+    email: { type: String, required: true, unique: true },
     phone: String,
     location: String,
     workarea: String,
@@ -12,13 +14,13 @@ const collectorSchema =new mongoose.Schema({
     reginumber: String,
     chassisnumber: String,
     vehicle: String,
-    status:String,
-    role:String,
-},
-{
-    timestamps: true
-}
-)
-const collectorModel = mongoose.model("collector",collectorSchema)
-module.exports = collectorModel
+    status: String,
+    role: String,
+  },
+  {
+    timestamps: true,
+  }
+);
 
+const collectorModel = mongoose.model("collector", collectorSchema);
+module.exports = collectorModel;

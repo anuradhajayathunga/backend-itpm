@@ -24,21 +24,23 @@ const addFeedbackController = require("../controller/feedback/addfeedback");
 const getAllFeedbacksController = require("../controller/feedback/getallfeedback");
 const deleteFeedbackController = require("../controller/feedback/deletefeedback");
 const { updateFeedback } = require("../controller/feedback/updatefeedback");
-const {
-    CreateWasteCollectionController,
-    GetAllWasteCollectionsController,
-    GetUserWasteCollectionsController,
-    GetWasteCollectionByIdController,
-    UpdateWasteCollectionController,
-    UpdateWasteCollectionStatusController,
-    DeleteWasteCollectionController,
-} = require("../controller/wasteReq/wasteCollectionRequestController"); // adjust the path as needed
+// Import controllers
+const CreateWasteCollectionController = require("../controller/waste/createWasteCollection");
+const GetAllWasteCollectionsController = require("../controller/waste/getAllWasteCollections");
+const GetUserWasteCollectionsController = require("../controller/waste/getUserWasteCollections");
+const GetWasteCollectionByIdController = require("../controller/waste/getWasteCollectionById");
+const UpdateWasteCollectionController = require("../controller/waste/updateWasteCollection");
+const UpdateWasteCollectionStatusController = require("../controller/waste/updateWasteCollectionStatus");
+const DeleteWasteCollectionController = require("../controller/waste/deleteWasteCollection");
+
+const { getCollectorTasks, assignTask } = require("../controller/task/assignTask");
+//task
+
 
 router.post("/signup", userSignUpController);
 router.post("/signin", userSignInController);
 router.get("/user-details", autherToken, userDetailsController);
 router.get("/user-logout", userLogout);
-
 //admin penel
 router.get("/all-user-details", autherToken, allUsersDetails);
 router.post("/update-user-role", autherToken, updateUser);
@@ -71,15 +73,21 @@ router.post("/send-waste", CreateWasteCollectionController);
 router.put("/update-waste/:id", UpdateWasteCollectionController);
 
 // PUT/Update the status of a waste collection record
-router.put("/update-waste-state/:id/status", UpdateWasteCollectionStatusController);
+router.put(
+  "/update-waste-state/:id/status",
+  UpdateWasteCollectionStatusController
+);
 
 // DELETE a waste collection record
 router.delete("/delete-wastereq/:id", DeleteWasteCollectionController);
-
 //feedback
 router.post("/add-feedback", addFeedbackController);
 router.get("/get-feedback", getAllFeedbacksController);
 router.post("/update-feedback/:id", updateFeedback);
 router.post("/delete-feedback", deleteFeedbackController);
+
+//task
+router.post("/tasks/assign", assignTask);
+router.get("/tasks/:email", getCollectorTasks);
 
 module.exports = router;
