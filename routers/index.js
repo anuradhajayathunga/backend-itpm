@@ -19,7 +19,7 @@ const getEmailController = require("../controller/email/getEmails");
 const { sendEmailMsgController } = require("../controller/email/sendEmailMsg");
 const storeEmailMsgController = require("../controller/email/storeSendMsg");
 const getSendMessagesController = require("../controller/email/getsendMsg");
-
+//feedback
 const addFeedbackController = require("../controller/feedback/addfeedback");
 const getAllFeedbacksController = require("../controller/feedback/getallfeedback");
 const deleteFeedbackController = require("../controller/feedback/deletefeedback");
@@ -32,9 +32,12 @@ const GetWasteCollectionByIdController = require("../controller/waste/getWasteCo
 const UpdateWasteCollectionController = require("../controller/waste/updateWasteCollection");
 const UpdateWasteCollectionStatusController = require("../controller/waste/updateWasteCollectionStatus");
 const DeleteWasteCollectionController = require("../controller/waste/deleteWasteCollection");
-
-const { getCollectorTasks, assignTask } = require("../controller/task/assignTask");
 //task
+const { getCollectorTasks, assignTask } = require("../controller/task/assignTask");
+//feedback with complaine
+const submissionController = require('../controller/feedback/submissionController');
+
+
 
 
 router.post("/signup", userSignUpController);
@@ -80,11 +83,18 @@ router.put(
 
 // DELETE a waste collection record
 router.delete("/delete-wastereq/:id", DeleteWasteCollectionController);
+
 //feedback
 router.post("/add-feedback", addFeedbackController);
 router.get("/get-feedback", getAllFeedbacksController);
 router.post("/update-feedback/:id", updateFeedback);
 router.post("/delete-feedback", deleteFeedbackController);
+
+// feedback with complaine
+router.post('/feedbacks', submissionController.createSubmission);
+router.get('/all-feedbacks', submissionController.getAllSubmissions);
+router.put('/feeedbacksbyid/:id', submissionController.updateSubmission);
+router.delete('/delete-feedbacks/:id', submissionController.deleteSubmission);
 
 //task
 router.post("/tasks/assign", assignTask);
